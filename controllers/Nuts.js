@@ -44,7 +44,7 @@ ${JSON.stringify(req.body)}`)
 try {
 let toUpdate = await Nuts.findById( req.params.id)
 // Do updates of properties
-if(req.body.Nuts)
+if(req.body.name)
 toUpdate.name = req.body.name;
 if(req.body.cost) toUpdate.cost = req.body.cost;
 if(req.body.size) toUpdate.size = req.body.size;
@@ -91,7 +91,7 @@ exports.Nuts_create_post = async function (req, res) {
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
     // {"Nuts_type":"goat", "cost":12, "size":"large"}
-    document.Name = req.body.Name;
+    document.name = req.body.name;
     document.cost = req.body.cost;
     document.size = req.body.size;
     try {
