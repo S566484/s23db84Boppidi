@@ -61,7 +61,7 @@ db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
 db.once("open", function(){
 console.log("Connection to DB succeeded")});
 
-var Nuts = require("./models/ Nuts");
+var Nuts = require("./models/Nuts");
 
 // We can seed the collection if needed onserver start
 async function recreateDB(){
