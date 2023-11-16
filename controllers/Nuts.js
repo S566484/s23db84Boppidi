@@ -11,7 +11,7 @@ exports.Nuts_list = function (req, res) {
 
 
 
-// for a specific Costume.
+// for a specific Nuts.
 exports.Nuts_detail = async function(req, res) {
 console.log("detail" + req.params.id)
 try {
@@ -28,10 +28,19 @@ res.send(`{"error": document for id ${req.params.id} not found`);
 exports.Nuts_create_post = function (req, res) {
     res.send('NOT IMPLEMENTED: Nuts create POST');
 };
-// Handle Nuts delete form on DELETE.
-exports.Nuts_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: Nuts delete DELETE ' + req.params.id);
-};
+// Handle Nuts delete on DELETE.
+exports.Nuts_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Nuts.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+    
 // Handle Nuts update form on PUT.
 //exports.Nuts_update_put = function (req, res) {
     //res.send('NOT IMPLEMENTED: Nuts update PUT' + req.params.id);
@@ -103,7 +112,62 @@ exports.Nuts_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
+// Handle a show one view with id specified by query
+exports.Nuts_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await Nuts.findById( req.query.id)
+res.render('Nutsdetail',
+{ title: 'Nuts Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
 
+// Handle building the view for creating a Nuts.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.Nuts_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('Nutscreate', { title: 'Nuts Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for updating a Nuts.
+// query provides the id
+exports.Nuts_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await Nuts.findById(req.query.id)
+    res.render('Nutsupdate', { title: 'Nuts Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+// Handle a delete one view with id from query
+exports.Nuts_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await Nuts.findById(req.query.id)
+    res.render('Nutsdelete', { title: 'Nuts Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    
     
 
 

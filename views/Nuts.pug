@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1= title
-  - let results = [{ name: "almonds", cost: 10.03, size: "Large" },{ name: "hazelnuts.", cost: 15.99, size: "medium" },{ name: "Brazil nuts", cost: 20.00, size: "small" }]
+  - let result = results
   div.container-fluid
     div.row
-      each nuts ,index in results
+      each nuts ,index in result
        div.col-sm-2(onclick=`buy(${index})`) #{nuts.name}
        div.col-sm-2(onclick=`buy(${index})`) #{nuts.cost}
        div.col-sm-2(onclick=`buy(${index})`) #{nuts.size}

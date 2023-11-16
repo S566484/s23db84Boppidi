@@ -18,12 +18,4 @@ router.get('/Nuts/:id', Nuts_controller.Nuts_detail);
 // GET request for list of all Costume items.
 router.get('/Nuts', Nuts_controller.Nuts_list);
 module.exports = router;
-// API for our resources
-exports.api = function(req, res) {
-res.write('[');
-res.write('{"resource":"Nuts", ');
-res.write(' "verbs":["GET","PUT", "DELETE"] ');
-res.write('}');
-res.write(']')
-res.send();
-};
+
