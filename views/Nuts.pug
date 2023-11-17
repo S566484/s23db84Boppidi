@@ -1,19 +1,17 @@
 extends layout
-
+ 
 block content
-  h1= title
-  - let result = results
-  div.container-fluid
-    div.row
-      each nuts ,index in result
-       div.col-sm-2(onclick=`buy(${index})`) #{nuts.name}
-       div.col-sm-2(onclick=`buy(${index})`) #{nuts.cost}
-       div.col-sm-2(onclick=`buy(${index})`) #{nuts.size}
-       br
-       hr
-
-  script. 
-      function buy(index)
-      {
-        alert(`you purchased Item ${index+1}`)
-      }
+  h1=title
+  - let items = results
+ 
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `/Nuts/update?id=${item._id}`
+        div(class="row-sm-2 m-1") Earring #{item.name}(#{item.size}) is #{item.cost}
+        button.btn(class="btn-primary ml-1", onclick=`dispatch("${destination}")`) Update
+ 
+  script.
+    function dispatch(path) {
+      window.location.href = path;
+    }
