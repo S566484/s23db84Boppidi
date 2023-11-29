@@ -8,7 +8,7 @@ block content
     div(class="row m-1")
       each item in items
         - let destination = `/Nuts/update?id=${item._id}`
-        div(class="row-sm-2 m-1") Earring #{item.name}(#{item.size}) is #{item.cost}
+        div(class="row-sm-2 m-1") Nuts #{item.name}(#{item.size}) is #{item.cost}
         button.btn(class="btn-primary ml-1", onclick=`dispatch("${destination}")`) Update
  
   script.
