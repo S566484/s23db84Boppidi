@@ -5,11 +5,25 @@ block content
   - let items = results
  
   div(class="container-fluid")
-    div(class="row m-1")
-      each item in items
-        - let destination = `/Nuts/update?id=${item._id}`
-        div(class="row-sm-2 m-1") Earring #{item.name}(#{item.size}) is #{item.cost}
-        button.btn(class="btn-primary ml-1", onclick=`dispatch("${destination}")`) Update
+    // Create button at the top
+    div(class="row-sm-2 m-1")
+      button.btn(class="btn btn-primary", onclick="dispatch('/Nuts/create')") Create
+ 
+    each item in items
+      - let updateDestination = `/Nuts/update?id=${item._id}`
+      - let detailDestination = `/Nuts/detail?id=${item._id}`
+      - let deleteDestination = `/Nuts/delete?id=${item._id}`
+ 
+      div(class="row-sm-2 m-1") Nuts #{item.name}(#{item.size}) is #{item.cost}
+     
+      // Update button
+      button.btn(class="btn btn-warning", onclick=`dispatch("${updateDestination}")`) Update
+ 
+      // Detail button
+      button.btn(class="btn btn-info", onclick=`dispatch("${detailDestination}")`) Detail
+ 
+      // Delete button
+      button.btn(class="btn btn-success", onclick=`dispatch("${deleteDestination}")`) Delete
  
   script.
     function dispatch(path) {
